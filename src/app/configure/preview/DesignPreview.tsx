@@ -79,7 +79,7 @@ const DesignPreview = ({configuration}: {configuration: Configuration}) => {
             aria-hidden='true'
             className='pointer-events-none select-none absolute inset-0 overflow-hidden flex justify-center'
         >
-            <Confetti active={showConfetti} config={{elementCount: 300, spread: 150}}/>
+            <Confetti active={showConfetti} config={{elementCount: 500, spread: 200}}/>
         </div>
 
         <LoginModal isOpen={isLoginModalOpen} setIsOpen={setIsLoginModalOpen} />
