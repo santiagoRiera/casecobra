@@ -41,6 +41,7 @@ export function constructMetadata({
       images: [image],
       creator: "@santilrier"
     },
-    icons
+    icons,
+    metadataBase: new URL("https://casecobra-santi.vercel.app/")
   }
 }
