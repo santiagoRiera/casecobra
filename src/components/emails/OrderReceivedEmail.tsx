@@ -36,13 +36,16 @@ const OrderReceivedEmail = ({
         <Container style={container}>
           <Section style={message}>
             <Img
-              src={`${baseUrl}/snake-3.png`}
+              src={`${baseUrl}/public/snake-3.png`}
               width='65'
               height='73'
               alt='delivery snake'
               style={{ margin: 'auto' }}
             />
             <Heading style={global.heading}>Thank you for your order!</Heading>
+            <Heading style={global.heading}>You should consider hiring me btw 😉
+
+            </Heading>
             <Text style={global.text}>
               We're preparing everything for delivery and will notify you once
               your package has been shipped. Delivery usually takes 3 days.
@@ -67,7 +70,7 @@ const OrderReceivedEmail = ({
                 <Text style={global.paragraphWithBold}>Order Number</Text>
                 <Text style={track.number}>{orderId}</Text>
               </Column>
-              <Column style={{marginLeft: 20}}>
+              <Column style={{marginLeft: 40}}>
                 <Text style={global.paragraphWithBold}>Order Date</Text>
                 <Text style={track.number}>{orderDate}</Text>
               </Column>
