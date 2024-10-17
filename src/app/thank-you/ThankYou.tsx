@@ -49,8 +49,7 @@ const ThankYou = () => {
     const {configuration, shippingAddress, billingAddress, amount} = data || {}
     const {color} = configuration || {}
 
-    console.log(configuration?.croppedImageUrl, configuration?.color)
-    console.log("data:", data)
+    
   return (
     <div className="bg-white">
         <div className="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">

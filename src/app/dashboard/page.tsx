@@ -12,14 +12,14 @@ const Page = async () => {
     const {getUser} = getKindeServerSession()
     const user = await getUser()
 
-    const ADMIN_EMAIL = process.env.ADMIN_EMAIL
+    //const ADMIN_EMAIL = process.env.ADMIN_EMAIL
     const WEEKLY_GOAL = 100
     const MONTHLY_GOAL = 500
 
     //Si no esta logeado o no es el admin, no se va a mostrar para nadie la ruta
-    if(!user || user.email !== ADMIN_EMAIL){
-        return notFound()
-    }
+    //if(!user || user.email !== ADMIN_EMAIL){
+    //    return notFound()
+    //}
 
     const orders = await db.order.findMany({
         where: {

@@ -60,9 +60,7 @@ import OrderReceivedEmail from "@/components/emails/OrderReceivedEmail";
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
-console.log("llega aca?")
 export async function POST(req: Request) {
-  console.log("Webhook received");
     try {
       const signature = headers().get('stripe-signature')
       const body = await req.text()
@@ -96,47 +94,39 @@ export async function POST(req: Request) {
   
         const billingAddress = session.customer_details!.address
         const shippingAddress = session.shipping_details!.address
-  
-        console.log("billingAddress:", billingAddress, "shippingAddress:", shippingAddress)
 
-        try{
-          const updatedOrder = await db.order.update({
-            where: {
-              id: orderId,
-            },
-            data: {
-              isPaid: true,
-              shippingAddress: {
-                create: {
-                  name: session.customer_details!.name!,
-                  city: shippingAddress!.city!,
-                  country: shippingAddress!.country!,
-                  postalCode: shippingAddress!.postal_code!,
-                  street: shippingAddress!.line1!,
-                  state: shippingAddress!.state,
-                },
-              },
-              billingAddress: {
-                create: {
-                  name: session.customer_details!.name!,
-                  city: billingAddress!.city!,
-                  country: billingAddress!.country!,
-                  postalCode: billingAddress!.postal_code!,
-                  street: billingAddress!.line1!,
-                  state: billingAddress!.state,
-                },
+
+        
+        const updatedOrder = await db.order.update({
+          where: {
+            id: orderId,
+          },
+          data: {
+            isPaid: true,
+            shippingAddress: {
+              create: {
+                name: session.customer_details!.name!,
+                city: shippingAddress!.city!,
+                country: shippingAddress!.country!,
+                postalCode: shippingAddress!.postal_code!,
+                street: shippingAddress!.line1!,
+                state: shippingAddress!.state,
               },
             },
-          })
+            billingAddress: {
+              create: {
+                name: session.customer_details!.name!,
+                city: billingAddress!.city!,
+                country: billingAddress!.country!,
+                postalCode: billingAddress!.postal_code!,
+                street: billingAddress!.line1!,
+                state: billingAddress!.state,
+              },
+            },
+          },
+        })
 
-          console.log("updatedOrder:", updatedOrder)
-        }
-        catch(err){
-          console.error("Error updating order:", err);
-        }
-
-  
-       {/*} await resend.emails.send({
+       await resend.emails.send({
           from: 'CaseCobra <santilrier@gmail.com>',
           to: [event.data.object.customer_details.email],
           subject: 'Thanks for your order!',
@@ -153,7 +143,7 @@ export async function POST(req: Request) {
               state: shippingAddress!.state,
             },
           }),
-        })*/}
+        })
       }
   
       return NextResponse.json({ result: event, ok: true })
@@ -161,6 +151,7 @@ export async function POST(req: Request) {
 
     catch(err){
         if (err instanceof Error) {
+          console.error('Error sending email:', err);
           console.error("error aca: ", {message: err.message, stack: err.stack, rawErr: err})
         } else {
           console.error("error aca: ", {message: String(err)})
