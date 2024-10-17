@@ -3,6 +3,11 @@ import Link from "next/link";
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import { buttonVariants } from "./ui/button";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import {
+    RegisterLink,
+    LoginLink,
+    LogoutLink,
+    } from "@kinde-oss/kinde-auth-nextjs/components";
 
 const Navbar = async () => {
     const {getUser} = getKindeServerSession()
@@ -20,7 +25,7 @@ const Navbar = async () => {
                     <div className="h-full flex items-center space-x-4">
                         {user ? (
                             <>
-                                <Link 
+                                <LogoutLink 
                                     href='/api/auth/logout' 
                                     className={buttonVariants({
                                         size: "sm",
@@ -28,7 +33,7 @@ const Navbar = async () => {
                                     })}
                                 >
                                     Sign out
-                                </Link>
+                                </LogoutLink>
 
                                 {isAdmin ? (
                                     <Link 
@@ -56,7 +61,7 @@ const Navbar = async () => {
                             </>
                         ) : (
                             <>
-                            <Link 
+                            <RegisterLink 
                                 href='/api/auth/register' 
                                 className={buttonVariants({
                                     size: "sm",
@@ -64,9 +69,9 @@ const Navbar = async () => {
                                 })}
                             >
                                 Sign up
-                            </Link>
+                            </RegisterLink>
 
-                            <Link 
+                            <LoginLink 
                                 href='/api/auth/login' 
                                 className={buttonVariants({
                                     size: "sm",
@@ -74,7 +79,7 @@ const Navbar = async () => {
                                 })}
                             >
                                 Login
-                            </Link>
+                            </LoginLink>
 
                             <div className="h-8 w-px bg-zinc-200 hidden sm:block"/>
                             <Link 
